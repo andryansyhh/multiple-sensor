@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package sensor;
+
+option go_package = "service-a/internal/grpc/pb";
+
+message SensorData {
+  double sensor_value = 1;
+  string sensor_type = 2;
+  string id1 = 3;
+  int32 id2 = 4;
+  string timestamp = 5;
+}
+
+message Empty {}
+
+service SensorService {
+  rpc SendData (SensorData) returns (Empty);
+}
