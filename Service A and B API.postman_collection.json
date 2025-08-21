@@ -1,0 +1,263 @@
+{
+	"info": {
+		"_postman_id": "b4f4a595-3411-403d-acd1-e6a7848b63ec",
+		"name": "Service A and B API",
+		"description": "Postman Collection for Service A and Service B HTTP endpoints (RESTful version)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15136612",
+		"_collection_link": "https://grey-zodiac-889086.postman.co/workspace/PVP~274f017d-5fce-4027-97cc-885869a89e18/collection/15136612-b4f4a595-3411-403d-acd1-e6a7848b63ec?action=share&source=collection_link&creator=15136612"
+	},
+	"item": [
+		{
+			"name": "Service A",
+			"item": [
+				{
+					"name": "Get Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serviceAUrl}}/health",
+							"host": [
+								"{{serviceAUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Frequency",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serviceAUrl}}/frequency",
+							"host": [
+								"{{serviceAUrl}}"
+							],
+							"path": [
+								"frequency"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Frequency",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"seconds\": 5\n}"
+						},
+						"url": {
+							"raw": "{{serviceAUrl}}/frequency",
+							"host": [
+								"{{serviceAUrl}}"
+							],
+							"path": [
+								"frequency"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Service B",
+			"item": [
+				{
+					"name": "Get Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serviceBUrl}}/health",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data (All)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serviceBUrl}}/data",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data (By ID1 & ID2)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serviceBUrl}}/data?id1=A&id2=1",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"data"
+							],
+							"query": [
+								{
+									"key": "id1",
+									"value": "A"
+								},
+								{
+									"key": "id2",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data (By Duration)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{serviceBUrl}}/data?start={{startTime}}&end={{endTime}}",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"data"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "{{startTime}}"
+								},
+								{
+									"key": "end",
+									"value": "{{endTime}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Data",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sensor_value\": 42.5,\n  \"sensor_type\": \"temperature\",\n  \"id1\": \"A\",\n  \"id2\": 1,\n  \"timestamp\": \"2025-08-21T04:47:00Z\"\n}"
+						},
+						"url": {
+							"raw": "{{serviceBUrl}}/data",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Data",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sensor_value\": 50.5\n}"
+						},
+						"url": {
+							"raw": "{{serviceBUrl}}/data/1",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"data",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Data",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{serviceBUrl}}/data/1",
+							"host": [
+								"{{serviceBUrl}}"
+							],
+							"path": [
+								"data",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "serviceAUrl",
+			"value": "http://localhost:8080",
+			"description": "Base URL for Service A"
+		},
+		{
+			"key": "serviceBUrl",
+			"value": "http://localhost:8083",
+			"description": "Base URL for Service B"
+		},
+		{
+			"key": "startTime",
+			"value": "2025-08-21T00:00:00Z",
+			"description": "Start time in RFC3339 format"
+		},
+		{
+			"key": "endTime",
+			"value": "2025-08-21T23:59:59Z",
+			"description": "End time in RFC3339 format"
+		}
+	]
+}
