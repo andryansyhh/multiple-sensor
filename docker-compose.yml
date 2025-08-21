@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sensors
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-ppassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  service-b:
+    build: ./service-b
+    depends_on:
+      mysql:
+        condition: service_healthy   
+    environment:
+      MYSQL_DSN: "root:password@tcp(mysql:3306)/sensors?parseTime=true&loc=Local"
+      PORT: "8083"
+    ports:
+      - "8083:8083"
+      - "50051:50051"
+
+  service-a:
+    build: ./service-a
+    depends_on:
+      service-b:
+        condition: service_started
+    environment:
+      SENSOR_TYPE: "temperature"
+      GRPC_TARGET: "service-b:50051"
+      PORT: "8081"
+    ports:
+      - "8081:8081"
+
