@@ -41,15 +41,14 @@ Base URLs:
 
 Service A Endpoints
 GET /health → Health check.
-
 GET /frequency → Get the current sending interval.
-
 POST /frequency → Update the sending interval.
 
 Service B Endpoints
 GET /health → Health check.
-
 GET /data → Query sensor data.
+PUT /data/:id → Query sensor data.
+DELETE /data/:id → Query sensor data.
 
 ✅ Example Requests
 Query Data (Service B)
